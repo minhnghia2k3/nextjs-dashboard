@@ -12,9 +12,9 @@ import { formatCurrency } from './utils';
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function fetchRevenue() {
-  // Add noStore() here prevent the response from being cached.
+  // Add noStore()  // Dynamic renderinghere prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
-  noStore();
+  noStore(); // Dynamic rendering
 
   try {
     // Artificially delay a response for demo purposes.
@@ -35,7 +35,7 @@ export async function fetchRevenue() {
 }
 
 export async function fetchLatestInvoices() {
-  noStore();
+  noStore(); // Dynamic rendering
   try {
     const data = await sql<LatestInvoiceRaw>`
       SELECT invoices.amount, customers.name, customers.image_url, customers.email, invoices.id
@@ -56,7 +56,7 @@ export async function fetchLatestInvoices() {
 }
 
 export async function fetchCardData() {
-  noStore();
+  noStore(); // Dynamic rendering
   try {
     // You can probably combine these into a single SQL query
     // However, we are intentionally splitting them to demonstrate
@@ -96,7 +96,7 @@ export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
 ) {
-  noStore();
+  noStore(); // Dynamic rendering
   const offset = (currentPage - 1) * ITEMS_PER_PAGE;
 
   try {
@@ -129,8 +129,7 @@ export async function fetchFilteredInvoices(
 }
 
 export async function fetchInvoicesPages(query: string) {
-  noStore();
-
+  noStore(); // Dynamic rendering
   try {
     const count = await sql`SELECT COUNT(*)
     FROM invoices
@@ -152,7 +151,7 @@ export async function fetchInvoicesPages(query: string) {
 }
 
 export async function fetchInvoiceById(id: string) {
-  noStore();
+  noStore(); // Dynamic rendering
 
   try {
     const data = await sql<InvoiceForm>`
@@ -179,7 +178,7 @@ export async function fetchInvoiceById(id: string) {
 }
 
 export async function fetchCustomers() {
-  noStore();
+  noStore(); // Dynamic rendering
 
   try {
     const data = await sql<CustomerField>`
@@ -199,7 +198,7 @@ export async function fetchCustomers() {
 }
 
 export async function fetchFilteredCustomers(query: string) {
-  noStore();
+  noStore(); // Dynamic rendering
 
   try {
     const data = await sql<CustomersTableType>`
@@ -234,7 +233,7 @@ export async function fetchFilteredCustomers(query: string) {
 }
 
 export async function getUser(email: string) {
-  noStore();
+  noStore(); // Dynamic rendering
 
   try {
     const user = await sql`SELECT * FROM users WHERE email=${email}`;
